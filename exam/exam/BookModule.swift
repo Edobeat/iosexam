@@ -27,6 +27,7 @@ final class BookViewController: UIViewController {
     private lazy var authorLabel = UILabel()
     private lazy var descriptionLabel = UILabel()
     private lazy var ratingLabel = UILabel()
+    private lazy var likeButton = UIButton()
     
     
     override func viewDidLoad() {
@@ -47,10 +48,12 @@ final class BookViewController: UIViewController {
         
         descriptionLabel.text = model.description
         descriptionLabel.numberOfLines = 0
+        
+        likeButton.imageView?.image = UIImage(systemName: "heart")
     }
     
     private func setUpView() {
-        let views = [imageView, titleLabel, authorLabel, descriptionLabel, ratingLabel]
+        let views = [imageView, titleLabel, authorLabel, descriptionLabel, ratingLabel, likeButton]
         for element in views {
             view.addSubview(element)
             element.translatesAutoresizingMaskIntoConstraints = false
@@ -70,8 +73,12 @@ final class BookViewController: UIViewController {
             descriptionLabel.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 8),
             descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
             descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
-            descriptionLabel.heightAnchor.constraint(equalToConstant: 150)
+            descriptionLabel.heightAnchor.constraint(equalToConstant: 150),
             
+            likeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            likeButton.rightAnchor.constraint(equalTo: view.rightAnchor),
+            likeButton.heightAnchor.constraint(equalToConstant: 44),
+            likeButton.widthAnchor.constraint(equalToConstant: 44),
         ])
     }
 }
@@ -89,4 +96,5 @@ final class BookPresenter {
     func viewIsReady() {
         view.configureView(model: book)
     }
+    
 }
