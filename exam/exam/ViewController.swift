@@ -22,6 +22,7 @@ final class MainViewController: UIViewController {
 private extension MainViewController {
     func setUpTableView() {
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         view.addSubview(tableView)
@@ -32,6 +33,11 @@ private extension MainViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+    
+    func showDetailView(for book: Book) {
+        let detailViewController = BookBuilder.build(bookModel: book)
+        navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
 
@@ -49,5 +55,16 @@ extension MainViewController: UITableViewDataSource {
         cell.imageView?.image = UIImage(named: book.photo)
         cell.textLabel?.text = book.title
         return cell
+    }
+}
+
+extension MainViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard indexPath.row < books.count else {
+            fatalError("greshka")
+        }
+        
+        let book = books[indexPath.row]
+        showDetailView(for: book)
     }
 }
