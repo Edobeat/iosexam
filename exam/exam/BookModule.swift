@@ -38,8 +38,15 @@ final class BookViewController: UIViewController {
     func configureView(model: Book) {
         title = model.title
         setUpView()
+        
         imageView.image = UIImage(named: model.photo)
         imageView.contentMode = .scaleAspectFit
+        
+        authorLabel.text = model.author
+        authorLabel.numberOfLines = 2
+        
+        descriptionLabel.text = model.description
+        descriptionLabel.numberOfLines = 0
     }
     
     private func setUpView() {
@@ -53,7 +60,18 @@ final class BookViewController: UIViewController {
             imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 64),
             imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -64),
-            imageView.heightAnchor.constraint(equalToConstant: 	250)
+            imageView.heightAnchor.constraint(equalToConstant: 	250),
+            
+            authorLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16),
+            authorLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            authorLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            authorLabel.heightAnchor.constraint(equalToConstant: 50),
+            
+            descriptionLabel.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 8),
+            descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+            descriptionLabel.heightAnchor.constraint(equalToConstant: 150)
+            
         ])
     }
 }
