@@ -22,13 +22,39 @@ final class BookBuilder {
 final class BookViewController: UIViewController {
     var output: BookPresenter?
     
+    private lazy var imageView = UIImageView()
+    private lazy var titleLabel = UILabel()
+    private lazy var authorLabel = UILabel()
+    private lazy var descriptionLabel = UILabel()
+    private lazy var ratingLabel = UILabel()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         output?.viewIsReady()
+        view.backgroundColor = .white
     }
     
     func configureView(model: Book) {
+        title = model.title
+        setUpView()
+        imageView.image = UIImage(named: model.photo)
+        imageView.contentMode = .scaleAspectFit
+    }
+    
+    private func setUpView() {
+        let views = [imageView, titleLabel, authorLabel, descriptionLabel, ratingLabel]
+        for element in views {
+            view.addSubview(element)
+            element.translatesAutoresizingMaskIntoConstraints = false
+        }
         
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 64),
+            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -64),
+            imageView.heightAnchor.constraint(equalToConstant: 	250)
+        ])
     }
 }
 
