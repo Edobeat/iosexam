@@ -10,6 +10,7 @@ import UIKit
 final class MainViewController: UIViewController {
 
     private lazy var tableView = UITableView()
+    private let books = Model.books
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,14 +37,17 @@ private extension MainViewController {
 
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        books.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell"),
+              indexPath.row < books.count else {
             fatalError("opa")
         }
-        cell.textLabel?.text = "Proba \(indexPath.row)"
+        let book = books[indexPath.row]
+        cell.imageView?.image = UIImage(named: book.photo)
+        cell.textLabel?.text = book.title
         return cell
     }
 }
